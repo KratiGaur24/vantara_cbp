@@ -1,0 +1,12 @@
+# Ignore the virtual environment binaries
+venv/
+.venv/
+
+# Ignore all heavy data storage files
+data/raw/*
+data/interim/*
+data/processed/*
+
+# Ignore local Jupyter runtime files
+.ipynb_checkpoints/
+*.ipynb_checkpoints
