@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # 1. FastAPI Backend Service (Port 8000)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: vantara_api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - cbp_network
+
+  # 2. Streamlit Web Dashboard Service (Port 8501)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: vantara_frontend
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+    networks:
+      - cbp_network
+
+networks:
+  cbp_network:
+    driver: bridge
